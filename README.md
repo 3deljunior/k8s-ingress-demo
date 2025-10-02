@@ -5,14 +5,14 @@ This project demonstrates how to use **Kubernetes Ingress** to route traffic to 
 ---
 
 ## Folder Structure
-
+`
 k8s-ingress-demo/
 ├── ingress.yaml
 ├── cafe.yaml
 ├── food.yaml
 ├── sports.yaml
 └── README.md
-
+`
 ---
 
 ## Prerequisites
@@ -28,16 +28,16 @@ k8s-ingress-demo/
 
 1. Deploy the individual apps & services:
 
-```bash
+ bash
 kubectl apply -f cafe.yaml
 kubectl apply -f food.yaml
 kubectl apply -f sports.yaml
 
-```bash
-Deploy the Ingress:
+bash
+## Deploy the Ingress:
 kubectl apply -f ingress.yaml
 
-Accessing the Apps
+## Accessing the Apps
 Option 1: Port-forward (works on local Minikube)
 
 kubectl port-forward -n ingress-nginx svc/ingress-nginx-controller 8080:80
@@ -45,7 +45,7 @@ curl http://localhost:8080/food
 curl http://localhost:8080/cafe
 curl http://localhost:8080/sports
 
-Option 2: Map a host (if using host: in Ingress)
+` Option 2: Map a host (if using host: in Ingress)
 
 Get Minikube IP:
 
@@ -60,7 +60,7 @@ curl http://myapp.com/food
 curl http://myapp.com/cafe
 curl http://myapp.com/sports
 
-
+`
 Notes
 Each app uses hashicorp/http-echo to simulate a simple HTTP response.
 
