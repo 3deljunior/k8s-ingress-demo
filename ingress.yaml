@@ -1,0 +1,41 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: minimal-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: myapp.com         # assign minikube <ip to specific_host name  ( same as DNS )
+    http:
+      paths:
+      - path: /food
+        pathType: Prefix
+        backend:
+          service:
+            name: food-svc
+            port:
+              number: 1000
+      - path: /sports
+        pathType: Prefix
+        backend:
+          service:
+            name: sports-svc
+            port:
+              number: 2000
+      - path: /cafe
+        pathType: Prefix
+        backend:
+          service:
+            name: cafe-svc
+            port:
+              number: 3000
+
+#to access apps thru browser use :
+
+# kubectl port-forward -n ingress-nginx svc/ingress-nginx-controller 8080:80  >>>> expose the url to localhost
+
+  #  accessed as e.g. :  localhost:8080/food  
+                  #      localhost:8080/cafe
+                  #      localhost:8080/sports

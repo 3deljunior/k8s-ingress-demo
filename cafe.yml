@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: try-ingress-cafe
+  labels:
+    app: ingre
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cafe
+  template:
+    metadata:
+      labels:
+        app: cafe
+    spec:
+      containers:
+      - name: msg
+        image: hashicorp/http-echo:0.2.3
+        args: 
+          - "-listen=:5678"
+          - "-text=Hello from Cafe.com"
+        ports:
+        - containerPort: 5678
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cafe-svc
+spec:
+  selector:
+    app: cafe
+  ports:
+    - name: http
+      protocol: TCP
+      port: 3000      
+      targetPort: 5678

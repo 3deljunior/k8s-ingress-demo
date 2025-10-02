@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: try-ingress-food
+  labels:
+    app: ingre
+spec:
+  # modify replicas according to your case
+  replicas: 2
+  selector:
+    matchLabels:
+      app: food
+  template:
+    metadata:
+      labels:
+        app: food
+    spec:
+      containers:
+      - name: msg
+        image: hashicorp/http-echo:0.2.3
+        args: 
+          - "-listen=:5678"
+          - "-text=Hello from Food.com"
+        ports:
+        - containerPort: 5678
+        
+        # imagePullPolicy: Never
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: food-svc
+spec:
+  selector:
+      app: food
+  ports:
+    -  name: food
+       protocol: TCP
+       port: 1000
+       targetPort: 5678
