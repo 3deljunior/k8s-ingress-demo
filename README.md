@@ -33,6 +33,7 @@ kubectl apply -f cafe.yaml
 kubectl apply -f food.yaml
 kubectl apply -f sports.yaml
 
+```bash
 Deploy the Ingress:
 kubectl apply -f ingress.yaml
 
